@@ -4,6 +4,7 @@ import * as React from "react";
 import { ConversationsContext } from "@/providers/ConversationsProvider";
 import { Button, Flex, TextAreaField } from "@aws-amplify/ui-react";
 import { useRouter } from "next/navigation";
+import "./page.css";
 
 export default function Home() {
   const { createConversation } = React.useContext(ConversationsContext);
@@ -28,11 +29,11 @@ export default function Home() {
   };
 
   return (
-    <Flex direction="column">
-      <h1>Hello, Amplify 👋</h1>
-      <Flex as="form" onSubmit={handleSubmit}>
-        <TextAreaField name="message" autoResize label="message" labelHidden />
-        <Button type="submit">Send</Button>
+    <Flex className="main-container" direction="column">
+      <h1 className="header">Let's summarize some news!</h1>
+      <Flex className="form-container" as="form" onSubmit={handleSubmit}>
+        <TextAreaField className="message-field" name="message" autoResize label="message" labelHidden placeholder="Please enter a link here..." />
+        <Button className="submit-button" type="submit">Send</Button>
       </Flex>
     </Flex>
   );

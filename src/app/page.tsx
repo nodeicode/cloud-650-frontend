@@ -19,30 +19,12 @@ export default function Home() {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const prompt = data.get("message") as string;
-    try{
-    
-    fetch(prompt).then(response => response.text())
-            .then(html => {
-              // Initialize the DOM parser
-              const parser = new DOMParser()
-
-              // Parse the text
-              const doc = parser.parseFromString(html, "text/html")
-              const docArticle = doc.querySelector('body')?.innerHTML ?? ''
-              console.log(docArticle)
-
-              createConversation().then((conversation) => {
-                if (!conversation) return;
-                router.push(`/chat/${conversation.id}`);
-                conversation?.sendMessage({ content: [{ text: docArticle }] });
-              })
-            })
-      
-            
-    }
-    catch(e){
-      console.error('Failed to fetch page: ', e)
-    }
+    console.log(prompt);
+    createConversation().then((conversation) => {
+      if (!conversation) return;
+      router.push(`/chat/${conversation.id}`);
+      conversation?.sendMessage({ content: [{ text: prompt }] });
+    });
   };
 
   return (

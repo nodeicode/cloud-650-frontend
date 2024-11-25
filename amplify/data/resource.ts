@@ -14,7 +14,7 @@ const schema = a.schema({
 	chat: a
 		.conversation({
 			aiModel: a.ai.model("Claude 3.5 Sonnet"),
-			systemPrompt: `You are a helpful assistant`,
+			systemPrompt: `You are a helpful assistant who when given HTML input of news and gives out a brief summary, summary should contain a heading and a summary paragraph following that. disregard any irrelavant information from HTML and only focus on the information.`,
 		})
 		.authorization((allow) => allow.owner()),
 

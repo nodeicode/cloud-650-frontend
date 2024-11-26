@@ -31,7 +31,8 @@ export default function Home() {
     const prompt = data.get("message") as string;
     
 
-    const {data:html} = await client.queries.fetchHtml({url: prompt})
+    const {data:html} = await client.queries.fetchHtml({url: prompt});
+    const result = html?.replace(/^\s*[\r\n]/gm, '');
 
 
     createConversation().then((conversation) => {
@@ -50,7 +51,7 @@ export default function Home() {
       }
 
       router.push(`/chat/${conversation.id}`);
-      conversation?.sendMessage({ content: [{ text: `${prompt} + ${html}` }] });
+      conversation?.sendMessage({ content: [{ text: `${prompt} + ${result}` }] });
     });
   };
 

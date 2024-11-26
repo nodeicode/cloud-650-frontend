@@ -2,15 +2,16 @@
 import * as React from "react";
 import { AIConversation } from "@aws-amplify/ui-react-ai";
 import { View } from "@aws-amplify/ui-react";
-import {  useAIConversation } from "@/client";
+import {  client, useAIConversation } from "@/client";
 // import { ConversationsContext } from "@/providers/ConversationsProvider";
 import ReactMarkdown from "react-markdown";
+import { ConversationsContext } from "@/providers/ConversationsProvider";
 
 export const Chat = ({ id }: { id: string }) => {
-  // const { updateConversation } = React.useContext(ConversationsContext);
+  const { updateConversation } = React.useContext(ConversationsContext);
   const [
     {
-      data: { messages },
+      data: { messages, conversation },
       isLoading,
     },
     sendMessage,
@@ -23,6 +24,19 @@ export const Chat = ({ id }: { id: string }) => {
         messages={messages}
         handleSendMessage={(message) => {
           sendMessage(message);
+          // only run this on the first message...
+          if (!conversation?.name) {
+            client.generations
+              .chatNamer({
+                content: message.content.map((c) => c.text ?? "").join(""),
+              })
+              .then((res) => {
+                updateConversation({
+                  id,
+                  name: res.data?.name ?? "",
+                });
+              });
+          }
         }}
         isLoading={isLoading}
         messageRenderer={{

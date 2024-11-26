@@ -55,12 +55,12 @@ export default function Home() {
   };
 
   return (
-    <Flex direction="column">
-      <h1>Hello, Cloud 650 Class 👋</h1>
+    <Flex className="main-container" direction="column">
+      <h1 className="header">Hello, Cloud 650 Class 👋</h1>
       <h2>Enter a news article link below for summary and follow up questions</h2>
-      <Flex as="form" onSubmit={handleSubmit}>
-        <TextAreaField name="message" autoResize label="message" labelHidden />
-        <Button type="submit">Send</Button>
+      <Flex className="form-container" as="form" onSubmit={handleSubmit}>
+        <TextAreaField className="message-field" name="message" autoResize label="message" labelHidden />
+        <Button className="submit-button" type="submit">Send</Button>
       </Flex>
     </Flex>
   );

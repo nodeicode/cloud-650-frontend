@@ -20,6 +20,7 @@ import {
 import { ConversationsContext } from "@/providers/ConversationsProvider";
 import { Conversation } from "@/client";
 import Link from "next/link";
+import "./ConversationItem.css";
 
 interface FormElements extends HTMLFormControlsCollection {
   conversationName: HTMLInputElement;
@@ -47,16 +48,17 @@ export const ConversationItem = ({
   };
 
   return (
-    <Flex direction="row" key={conversation.id} alignItems="center">
-      <Flex direction="column" flex="1">
+    <Flex className="conversation-item" direction="row" key={conversation.id} alignItems="center">
+      <Flex className="conversation-content" direction="column" flex="1">
         {editing ? (
-          <View as="form" onSubmit={handleSubmit}>
+          <View as="form" onSubmit={handleSubmit} className="editing-form">
             <TextField
               label="Conversation name"
               name="conversationName"
               labelHidden
               defaultValue={conversation.name}
               variation="quiet"
+              className="text-field"
               innerEndComponent={
                 <>
                   <Button
@@ -76,7 +78,7 @@ export const ConversationItem = ({
             />
           </View>
         ) : (
-          <Link href={`/chat/${conversation.id}`}>
+          <Link href={`/chat/${conversation.id}`} className="conversation-link">
             {conversation.name ?? conversation.id}
           </Link>
         )}
@@ -89,11 +91,12 @@ export const ConversationItem = ({
           </MenuButton>
         }
       >
-        <MenuItem gap="xs" onClick={() => setEditing(!editing)}>
+        <MenuItem className="menu-item" gap="xs" onClick={() => setEditing(!editing)}>
           <LuPencil />
           <span>Rename</span>
         </MenuItem>
         <MenuItem
+          className="menu-item"
           gap="xs"
           onClick={() => deleteConversation({ id: conversation.id })}
         >

@@ -4,6 +4,7 @@ import * as React from "react";
 import { ConversationsContext } from "@/providers/ConversationsProvider";
 import { Button, Flex, TextAreaField } from "@aws-amplify/ui-react";
 import { useRouter } from "next/navigation";
+import "./page.css";
 
 import { generateClient } from "aws-amplify/api"
 import outputs from "../../amplify_outputs.json"
